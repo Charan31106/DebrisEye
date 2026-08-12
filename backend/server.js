@@ -37,6 +37,28 @@ const apiLimiter = rateLimit({
 });
 app.use('/api/', apiLimiter);
 
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+// Lazy Seeding Middleware for Serverless Environments (Vercel)
+let dbSeeded = false;
+app.use(async (req, res, next) => {
+  if (!dbSeeded) {
+    try {
+      const count = await prisma.debrisObject.count();
+      if (count === 0) {
+        console.log('[Serverless Boot] Database empty. Launching lazy seed...');
+        await runIngestion();
+        await runAlertCheck();
+      }
+      dbSeeded = true;
+    } catch (err) {
+      console.error('[Serverless Boot] Lazy seed failed:', err.message);
+    }
+  }
+  next();
+});
+
 // Bind API Routers
 app.use('/api/debris', debrisRouter);
 app.use('/api/conjunctions', conjunctionRouter);
