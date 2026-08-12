@@ -1,0 +1,52 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model DebrisObject {
+  id          Int      @id @default(autoincrement())
+  noradId     String   @unique
+  name        String
+  tleLine1    String
+  tleLine2    String
+  epoch       DateTime
+  altitudeKm  Float
+  inclination Float
+  eccentricity Float
+  raan        Float
+  meanMotion  Float
+  riskScore   Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Conjunction {
+  id           Int      @id @default(autoincrement())
+  object1Id    String
+  object2Id    String
+  tca          DateTime
+  missDistance Float
+  pc           Float
+  riskLevel    String
+  resolved     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model Alert {
+  id        Int      @id @default(autoincrement())
+  type      String
+  payload   String
+  severity  String
+  createdAt DateTime @default(now())
+}
+
+model KesslerSnapshot {
+  id        Int      @id @default(autoincrement())
+  score     Float
+  factors   String
+  createdAt DateTime @default(now())
+}
