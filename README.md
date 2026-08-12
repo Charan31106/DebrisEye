@@ -65,10 +65,10 @@ The Docker container cluster will spin up:
 4. **Backend Gateway** (`debriseye-backend`) on port `4000` (Express + WebSocket + Prisma)
 5. **Frontend Console** (`debriseye-frontend`) on port `3000` (React + Vite + Three.js)
 
-### Access Links
-* **Command Room HUD Dashboard**: [http://localhost:3000](http://localhost:3000)
-* **Researcher Swagger API Playground**: [http://localhost:4000/api/docs](http://localhost:4000/api/docs)
-* **Python ML Engine OpenAPI Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+### Access Links (Production Deployment)
+* **Command Room HUD Dashboard**: [https://debris-eye.vercel.app](https://debris-eye.vercel.app)
+* **Researcher Swagger API Playground**: [https://debris-eye.vercel.app/api/docs](https://debris-eye.vercel.app/api/docs)
+* **Python ML Engine OpenAPI Docs**: [http://localhost:8000/docs](http://localhost:8000/docs) *(Local Docker deployment only)*
 
 ---
 
